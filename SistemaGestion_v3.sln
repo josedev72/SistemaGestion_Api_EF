@@ -5,9 +5,10 @@ VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaGestionApi", "SistemaGestionApi\SistemaGestionApi.csproj", "{67FA4920-7B06-4D03-8F67-95CD3FCAD70B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{B0CDC6C8-73EB-4289-AE59-0932FD86B690}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{17376F44-2A92-4170-8EA8-61CBB6AE1CE9}"
 	ProjectSection(SolutionItems) = preProject
 		..\Readme.md = ..\Readme.md
+		..\SistemaGestionEF.sql = ..\SistemaGestionEF.sql
 	EndProjectSection
 EndProject
 Global
