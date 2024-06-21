@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaGestionApi", "SistemaGestionApi\SistemaGestionApi.csproj", "{67FA4920-7B06-4D03-8F67-95CD3FCAD70B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaGestion.Cliente", "SistemaGestion.Cliente\SistemaGestion.Cliente.csproj", "{8973CC2F-C013-4969-AD35-01C4867E2B0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{67FA4920-7B06-4D03-8F67-95CD3FCAD70B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67FA4920-7B06-4D03-8F67-95CD3FCAD70B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67FA4920-7B06-4D03-8F67-95CD3FCAD70B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8973CC2F-C013-4969-AD35-01C4867E2B0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8973CC2F-C013-4969-AD35-01C4867E2B0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8973CC2F-C013-4969-AD35-01C4867E2B0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8973CC2F-C013-4969-AD35-01C4867E2B0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
