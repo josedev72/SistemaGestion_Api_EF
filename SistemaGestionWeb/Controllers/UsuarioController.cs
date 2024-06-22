@@ -2,33 +2,31 @@
 using Newtonsoft.Json;
 using SistemaGestionWeb.Models;
 using System.Text;
-using System.Text.Json.Serialization;
 
 namespace SistemaGestionWeb.Controllers
 {
-    public class ProductoController : Controller
+    public class UsuarioController : Controller
     {
         private readonly HttpClient _httpClient;
 
-        public ProductoController(IHttpClientFactory httpClientFactory)
+        public UsuarioController(IHttpClientFactory httpClientFactory)
         {
             _httpClient = httpClientFactory.CreateClient();
             _httpClient.BaseAddress = new Uri("https://localhost:7002/api");
         }
 
-        // Index
         public async Task<IActionResult> Index()
         {
-            var response = await _httpClient.GetAsync("api/Producto/lista");
+            var response = await _httpClient.GetAsync("api/Usuario/lista");
 
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                var productos = JsonConvert.DeserializeObject<IEnumerable<ProductoViewModel>>(content);
-                return View("Index", productos);
+                var usuarios = JsonConvert.DeserializeObject<IEnumerable<UsuarioViewModel>>(content);
+                return View("Index", usuarios);
             }
 
-            return View(new List<ProductoViewModel>());
+            return View(new List<UsuarioViewModel>());
         }
 
         // Para "Crear" un nuevo registro, primero llamamos a una nueva vista (Create) y
@@ -39,14 +37,14 @@ namespace SistemaGestionWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ProductoViewModel producto)
+        public async Task<IActionResult> Create(UsuarioViewModel usuario)
         {
             if (ModelState.IsValid)
             {
-                var json = JsonConvert.SerializeObject(producto);
+                var json = JsonConvert.SerializeObject(usuario);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PostAsync("/api/Producto/crear", content);
+                var response = await _httpClient.PostAsync("/api/Usuario/crear", content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -54,25 +52,24 @@ namespace SistemaGestionWeb.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Error al crear Producto");
+                    ModelState.AddModelError(string.Empty, "Error al crear Usuario");
                 }
             }
 
-            return View(producto);
+            return View(usuario);
         }
 
         // Edit, creamos 2 métodos: GET y POST
         public async Task<IActionResult> Edit(int id)
         {
-            //var response = await _httpClient.GetAsync($"/api/Productos/verProducto?id={id}");
-            var response = await _httpClient.GetAsync($"api/Producto/ver?id={id}");
+            var response = await _httpClient.GetAsync($"api/Usuario/ver?id={id}");
 
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                var producto = JsonConvert.DeserializeObject<ProductoViewModel>(content);
+                var usuario = JsonConvert.DeserializeObject<UsuarioViewModel>(content);
 
-                return View(producto);
+                return View(usuario);
             }
             else
             {
@@ -81,20 +78,19 @@ namespace SistemaGestionWeb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, ProductoViewModel producto)
+        public async Task<IActionResult> Edit(int id, UsuarioViewModel usuario)
         {
-            if (id != producto.Id)
+            if (id != usuario.Id)
             {
                 return BadRequest();
             }
 
             if (ModelState.IsValid)
             {
-                var json = JsonConvert.SerializeObject(producto);
+                var json = JsonConvert.SerializeObject(usuario);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                //var response = await _httpClient.PutAsync($"/api/Productos/editarProducto?id={id}", content);
-                var response = await _httpClient.PutAsync($"/api/Producto/editar?id={id}", content);
+                var response = await _httpClient.PutAsync($"/api/Usuario/editar?id={id}", content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -102,26 +98,26 @@ namespace SistemaGestionWeb.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Error al editar Producto");
+                    ModelState.AddModelError(string.Empty, "Error al editar Usuario");
                 }
             }
 
             // Si hay error de validación, mostrar el formulario de edición con el/los errores.
-            return View(producto);
+            return View(usuario);
         }
 
         // Detalle
         public async Task<IActionResult> Details(int id)
         {
-            var response = await _httpClient.GetAsync($"/api/Producto/ver?id={id}");
+            var response = await _httpClient.GetAsync($"/api/Usuario/ver?id={id}");
 
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
 
-                var producto = JsonConvert.DeserializeObject<ProductoViewModel>(content);
+                var usuario = JsonConvert.DeserializeObject<UsuarioViewModel>(content);
 
-                return View(producto);
+                return View(usuario);
             }
             else
             {
@@ -132,7 +128,7 @@ namespace SistemaGestionWeb.Controllers
         // Delete
         public async Task<IActionResult> Delete(int id)
         {
-            var response = await _httpClient.DeleteAsync($"/api/Producto/eliminar?id={id}");
+            var response = await _httpClient.DeleteAsync($"/api/Usuario/eliminar?id={id}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -140,7 +136,7 @@ namespace SistemaGestionWeb.Controllers
             }
             else
             {
-                TempData["Error"] = "Error al eliminar Producto";
+                TempData["Error"] = "Error al eliminar Usuario";
                 return RedirectToAction("Index");
             }
         }
