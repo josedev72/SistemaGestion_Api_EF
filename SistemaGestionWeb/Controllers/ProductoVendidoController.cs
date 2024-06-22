@@ -128,6 +128,22 @@ namespace SistemaGestionWeb.Controllers
             }
         }
 
+        // Delete
+        public async Task<IActionResult> Delete(int id)
+        {
+            var response = await _httpClient.DeleteAsync($"/api/ProductoVendido/eliminar?id={id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["Error"] = "Error al eliminar ProductoVendido";
+                return RedirectToAction("Index");
+            }
+        }
+
 
 
     }
