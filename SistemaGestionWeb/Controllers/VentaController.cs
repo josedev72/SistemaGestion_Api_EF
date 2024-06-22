@@ -91,7 +91,6 @@ namespace SistemaGestionWeb.Controllers
                 var json = JsonConvert.SerializeObject(venta);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                //var response = await _httpClient.PutAsync($"/api/Productos/editarProducto?id={id}", content);
                 var response = await _httpClient.PutAsync($"/api/Venta/editar?id={id}", content);
 
                 if (response.IsSuccessStatusCode)

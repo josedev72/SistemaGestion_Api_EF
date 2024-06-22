@@ -64,7 +64,6 @@ namespace SistemaGestionWeb.Controllers
         // Edit, creamos 2 métodos: GET y POST
         public async Task<IActionResult> Edit(int id)
         {
-            //var response = await _httpClient.GetAsync($"/api/Productos/verProducto?id={id}");
             var response = await _httpClient.GetAsync($"api/Producto/ver?id={id}");
 
             if (response.IsSuccessStatusCode)
@@ -93,7 +92,6 @@ namespace SistemaGestionWeb.Controllers
                 var json = JsonConvert.SerializeObject(producto);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                //var response = await _httpClient.PutAsync($"/api/Productos/editarProducto?id={id}", content);
                 var response = await _httpClient.PutAsync($"/api/Producto/editar?id={id}", content);
 
                 if (response.IsSuccessStatusCode)
