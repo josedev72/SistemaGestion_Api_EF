@@ -1,0 +1,36 @@
+﻿@model SistemaGestionWeb.Models.VentaViewModel
+
+<div class=" card text-primary">
+    <div class="card-header text-center">
+        <h5>Crear Venta</h5>
+    </div>
+    <div class=" card-body text-center">
+        <div class=" col-md-12">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                @* Campos *@
+                <div class="form-group">
+                    <label></label>
+                    <input asp-for="Comentarios" class="form-control" placeholder="Comentarios">
+                    <span asp-validation-for="Comentarios" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label></label>
+                    <input asp-for="IdUsuario" class="form-control" placeholder="IdUsuario">
+                    <span asp-validation-for="IdUsuario" class="text-danger"></span>
+                </div>
+
+                @* Botones *@
+                <div class=" card-footer text-center">
+                    <div class="form-group">
+                        <input type="submit" value="Guardar" class="btn btn-outline-primary btn-sm" />
+                        <a asp-action="Index" class="btn btn-outline-success btn-sm">Volver a la Lista</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
