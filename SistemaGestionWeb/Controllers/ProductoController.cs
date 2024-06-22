@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using SistemaGestion.Cliente.Models;
+using SistemaGestionWeb.Models;
 using System.Text;
 using System.Text.Json.Serialization;
 
-namespace SistemaGestion.Cliente.Controllers
+namespace SistemaGestionWeb.Controllers
 {
     public class ProductoController : Controller
     {
@@ -23,7 +23,7 @@ namespace SistemaGestion.Cliente.Controllers
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                var productos =JsonConvert.DeserializeObject<IEnumerable<ProductoViewModel>>(content);
+                var productos = JsonConvert.DeserializeObject<IEnumerable<ProductoViewModel>>(content);
                 return View("Index", productos);
             }
 
@@ -47,7 +47,7 @@ namespace SistemaGestion.Cliente.Controllers
 
                 var response = await _httpClient.PostAsync("/api/Producto/crear", content);
 
-                if (response.IsSuccessStatusCode) 
+                if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction("Index");
                 }
@@ -60,9 +60,12 @@ namespace SistemaGestion.Cliente.Controllers
             return View(producto);
         }
 
+        // Edit, creamos 2 métodos: GET y POST
         public async Task<IActionResult> Edit(int id)
         {
+            //var response = await _httpClient.GetAsync($"/api/Productos/verProducto?id={id}");
             var response = await _httpClient.GetAsync($"api/Producto/ver?id={id}");
+
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
@@ -79,11 +82,17 @@ namespace SistemaGestion.Cliente.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id, ProductoViewModel producto)
         {
+            if (id != producto.Id)
+            {
+                return BadRequest();
+            }
+
             if (ModelState.IsValid)
             {
                 var json = JsonConvert.SerializeObject(producto);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
+                //var response = await _httpClient.PutAsync($"/api/Productos/editarProducto?id={id}", content);
                 var response = await _httpClient.PutAsync($"/api/Producto/editar?id={id}", content);
 
                 if (response.IsSuccessStatusCode)
@@ -92,11 +101,49 @@ namespace SistemaGestion.Cliente.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Error al actualizar producto");
+                    ModelState.AddModelError(string.Empty, "Error al editar Producto");
                 }
+            }
 
+            // Si hay error de validación, mostrar el formulario de edición con el/los errores.
+            return View(producto);
+        }
+
+        // Detalle
+        public async Task<IActionResult> Details(int id)
+        {
+            var response = await _httpClient.GetAsync($"/api/Producto/ver?id={id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+
+                var producto = JsonConvert.DeserializeObject<ProductoViewModel>(content);
+
+                return View(producto);
+            }
+            else
+            {
+                return RedirectToAction("Details");
             }
         }
+
+        // Delete
+        public async Task<IActionResult> Delete(int id)
+        {
+            var response = await _httpClient.DeleteAsync($"/api/Producto/eliminar?id={id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["Error"] = "Error al eliminar Producto";
+                return RedirectToAction("Index");
+            }
+        }
+
 
     }
 }
