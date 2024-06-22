@@ -109,6 +109,24 @@ namespace SistemaGestionWeb.Controllers
             return View(productoVendido);
         }
 
+        // Detalle
+        public async Task<IActionResult> Details(int id)
+        {
+            var response = await _httpClient.GetAsync($"/api/ProductoVendido/ver?id={id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+
+                var productoVendido = JsonConvert.DeserializeObject<ProductoVendidoViewModel>(content);
+
+                return View(productoVendido);
+            }
+            else
+            {
+                return RedirectToAction("Details");
+            }
+        }
 
 
 
