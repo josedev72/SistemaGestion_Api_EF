@@ -46,6 +46,21 @@ namespace SistemaGestionApi.Controllers
             return Ok(usuario);
         }
 
+        [HttpGet]
+        [Route("trarnombre")]
+        public async Task<IActionResult> traerNombre(int id)
+        {
+            Usuario usuario = await _context.Usuarios.FindAsync(id);
+            
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            string nombre = usuario.Nombre;
+            return Ok(nombre);
+        }
+
         [HttpPut]
         [Route("editar")]
         public async Task<IActionResult> EditarUsuario(int id, Usuario usuario)
