@@ -47,7 +47,7 @@ namespace SistemaGestionApi.Controllers
         }
 
         [HttpGet]
-        [Route("trarnombre")]
+        [Route("traernombre")]
         public async Task<IActionResult> traerNombre(int id)
         {
             Usuario usuario = await _context.Usuarios.FindAsync(id);
